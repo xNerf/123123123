@@ -51,7 +51,7 @@
             opacity: 0;
         }
 
-        /* Canvas z liniami */
+
         #linesCanvas {
             position: fixed;
             top: 0;
@@ -62,7 +62,7 @@
             pointer-events: none;
         }
 
-        /* Reszta styli pozostaje bez zmian */
+
         .glow {
             font-size: 64px;
             color: #00ff00;
@@ -210,7 +210,7 @@
     </div>
 
     <script>
-        // Skrypt dla linii reagujących na kursor
+
         const canvas = document.getElementById('linesCanvas');
         const ctx = canvas.getContext('2d');
         let mouseX = 0;
@@ -218,13 +218,13 @@
         const points = [];
         const maxDistance = 150;
 
-        // Dostosuj rozmiar canvas
+
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
 
-        // Inicjalizacja punktów
+
         function initPoints() {
             const pointCount = Math.floor((window.innerWidth * window.innerHeight) / 10000);
             for (let i = 0; i < pointCount; i++) {
@@ -237,13 +237,13 @@
             }
         }
 
-        // Rysowanie linii
+
         function drawLines() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Rysuj linie między punktami
+
             for (let i = 0; i < points.length; i++) {
-                // Linie między punktami
+
                 for (let j = i + 1; j < points.length; j++) {
                     const dx = points[i].x - points[j].x;
                     const dy = points[i].y - points[j].y;
@@ -260,7 +260,6 @@
                     }
                 }
                 
-                // Linie do kursora
                 const dx = points[i].x - mouseX;
                 const dy = points[i].y - mouseY;
                 const distanceToMouse = Math.sqrt(dx * dx + dy * dy);
@@ -276,12 +275,12 @@
                 }
             }
             
-            // Aktualizuj pozycje punktów
+
             for (let i = 0; i < points.length; i++) {
                 points[i].x += points[i].vx;
                 points[i].y += points[i].vy;
                 
-                // Odbijanie od krawędzi
+
                 if (points[i].x < 0 || points[i].x > canvas.width) points[i].vx *= -1;
                 if (points[i].y < 0 || points[i].y > canvas.height) points[i].vy *= -1;
             }
@@ -289,13 +288,11 @@
             requestAnimationFrame(drawLines);
         }
 
-        // Śledź pozycję kursora
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
 
-        // Inicjalizacja
         window.addEventListener('load', () => {
             resizeCanvas();
             initPoints();
